@@ -1,0 +1,30 @@
+body {
+    line-height: 1.6;
+    font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;
+    color: #222;
+    font-size: 14px;
+    background-color: #d9dadc;
+}
+
+.green {
+    background-color: #44b549;	
+}
+
+.head_box {
+    position: relative;
+    background-color: #fff;
+    border-top: 4px solid #44b549;
+    border-bottom: 1px solid #d9dadc;
+}
+.logo {
+	height: 60px;
+	background: #fff;
+}
+.body {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 36px;
+    background-color:#fff;	
+    height: 400px;
+}

@@ -1,0 +1,35 @@
+.logo_image{
+    height: 40px;
+}
+
+.ui-slider-content > li {
+    height: 200px;
+}
+.ui-slider-content > li span{
+    height: 200px;
+}
+
+.index-btn {
+    margin: 20px;
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    border-radius: 40px;
+    text-align: center;
+    background-color: green;
+    color: white;
+}
+.ui-slider-content {
+    height: 200px;
+}
+.ui-slider {
+    overflow: auto;
+    height: 100px;
+}
+.ui-dialog-bd h4 {
+    text-align: center;
+    font-weight: bold;
+}
+.qrcode {
+    text-align: center;
+}

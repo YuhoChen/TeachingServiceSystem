@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+
+.image-li {
+	list-style-type:none;
+	list-style-image: none
+}
+.image-li img {
+	vertical-align: middle;
+}
+.left-div {
+	font-size: 1rem
+}
+.float-ul {
+	float: left;
+	margin-left: 1rem;
+}
+.remark {
+	font-size: 0.5rem;
+    color: #FF0000;
+    margin-top: -0.5rem;
+}
+.remark-bottom {
+	/**margin-left: 0.8rem;**/
+	font-size: 0.5rem;
+}
+.price {
+	width: 41.66666667%;
+	float:left;
+	background:#72c7fd; 
+	font-size:2.5rem; 
+	text-align:center; 
+	color:#fff;
+	position: relative;
+    min-height: 1px;
+}
+.shop {
+	width: 58.33333333%;
+	float:left;
+	background:#eb5932; 
+	font-size:2.5rem; 
+	text-align:center; 
+	position: relative;
+    min-height: 1px;
+}
+.kit-component-title {
+    font-size: 1rem;
+    /**padding-left: 0.7rem;**/
+}

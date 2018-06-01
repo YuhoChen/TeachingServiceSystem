@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+       default-autowire="byName">
+    <!-- 我们可以在其中添加我们所需要配置的bean，也可以添加相应的数据库连接和事务处理等等，方便后续拓展
+           -->
+
+
+    <context:component-scan base-package="*com.yuhao.TeachingServiceSystem*">
+        <context:exclude-filter type="regex" expression="com.yuhao.TeachingServiceSystem.web.*"/>
+    </context:component-scan>
+
+
+    <!-- 开启注解  -->
+    <task:annotation-driven/>
+
+
+    <!-- 参数配置信息,扫描classpath目录下所有的.properties文件 -->
+    <context:property-placeholder location="classpath*:*.properties"/>
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${db.driver}"></property>
+        <property name="jdbcUrl" value="${db.url}" />
+        <property name="user" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="minPoolSize" value="${db.minPoolSize}" />
+        <property name="maxPoolSize" value="${db.maxPoolSize}" />
+        <property name="initialPoolSize" value="${db.minPoolSize}" />
+        <!-- 发现maxStatements大于0会有问题，在多线程情况下 -->
+        <!-- <property name="maxStatements" value="${db.maxStatements}" /> -->
+        <property name="maxIdleTime" value="${db.maxIdleTime}" />
+        <property name="idleConnectionTestPeriod" value="${db.idleConnectionTestPeriod}" />
+        <property name="testConnectionOnCheckin" value="true" />
+    </bean>
+
+    <!-- 加载hibernate中的会话工厂 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <!-- 加载元数据信息 -->
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.id.new_generator_mappings">false</prop>
+
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+
+                <!-- <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop> -->
+            </props>
+        </property>
+
+        <!-- 找到对应的实体类 -->
+        <property name="packagesToScan">
+            <list>
+                <value>com.yuhao.TeachingServiceSystem.model</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 启用Aspect对Annotation的支持 -->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+
+    <!-- 自动事务管理 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 下面配置了需要一XX开头的方法需要进行spring事务的管理 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!-- 配置required的就是表示需要有事务，会开启事务。read-only为true的是只能够查询，不能够增删改 -->
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="create*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="merge*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="remove*" propagation="REQUIRED" />
+            <tx:method name="put*" propagation="REQUIRED" />
+            <tx:method name="register" propagation="REQUIRED"/>
+            <tx:method name="order*" propagation="REQUIRED"/>
+            <tx:method name="cancel*" propagation="REQUIRED"/>
+            <tx:method name="send*" propagation="REQUIRED"/>
+            <!-- must open transaction if is hibernate4 -->
+            <tx:method name="get*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="count*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="find*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="list*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="init*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="refresh*" propagation="REQUIRED" read-only="true" />
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+
+    <aop:config expose-proxy="true">
+        <!-- 只对service包下的所有类的所有方法应用事务管理，所以，其它的地方可能无法自由访问数据库 -->
+        <aop:pointcut id="txPointcut" expression="execution(* com.yuhao.TeachingServiceSystem.service.*.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+
+
+    <!-- 连接池配置 -->
+    <bean id ="taskExecutor" class ="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
+        <property name ="corePoolSize" value ="30" />
+        <property name ="keepAliveSeconds" value ="200" />
+        <property name ="maxPoolSize" value ="50" />
+        <property name ="queueCapacity" value ="5" />
+
+    </bean >
+
+
+
+</beans>

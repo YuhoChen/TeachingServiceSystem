@@ -1,0 +1,68 @@
+.logo_image{
+    height: 40px;
+}
+
+.ui-slider-content > li {
+    height: 200px;
+}
+.ui-slider-content > li span{
+    height: 200px;
+}
+
+.index-btn {
+    margin: 20px;
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    border-radius: 40px;
+    text-align: center;
+    background-color: green;
+    color: white;
+}
+.ui-slider-content {
+    height: 200px;
+}
+.ui-slider {
+    overflow: auto;
+    height: 60px;
+}
+.ui-dialog-bd h4 {
+    text-align: center;
+    font-weight: bold;
+}
+.qrcode {
+    text-align: center;
+}
+.header-category {
+	font-size: 20px;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	background-color: blue;
+	color: white;	
+}
+.ui-btn-group {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.ui-btn-lg {
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+}
+.btn-buy {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	background-color: blue;
+	color: white;
+	line-height: 50px;
+	text-align: center;
+	position: fixed;
+	right: 10px;
+	top: 200px;
+	opacity: 0.5;
+}

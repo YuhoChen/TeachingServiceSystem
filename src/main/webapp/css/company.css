@@ -1,0 +1,142 @@
+@charset "utf-8";
+/* CSS Document */
+
+.overview-img {
+	float:right; 
+	width:20%
+}
+.left-img {
+	width:50%; 
+	float:left;
+}
+.right-img {
+	width:50%; 
+	float:right;
+}
+.notice-img {
+	width:30%; 
+	float:right;
+}
+.ldts-img {
+	width:30%; 
+	float:left;
+	margin-right:1.5rem;
+}
+.core-team-a {
+	word-wrap: break-word;
+    word-break: break-all;
+    /* text-indent: -0.7rem; */
+}
+.div-href {
+	/**padding-left: 0.7rem;**/
+    color: #0092c9;
+    font-size: 0.8rem;
+}
+.advantage-div {
+	font-size: 1rem;
+    margin-left: 1.2rem;
+    margin-top: -0.5rem;
+    /**border: solid blue 0.15rem;**/
+    padding-left: 0.5rem;
+    color: blue;
+}
+.core-team {
+	margin-top: 0.5rem;
+}
+.core-team-left {
+	float:left;
+	width:50%;
+}
+.core-team-left-title {
+	font-size: 1rem;
+    /**padding-left: 0.7rem;**/
+    font-weight: bold;
+}
+.core-team-right {
+	float:left;
+	padding-left: 1rem;
+	width:45%;
+	margin-top: -0.3rem;
+}
+.core-team-right div{
+	font-weight: bold;
+	font-size: 0.8rem;
+    /**margin-bottom: -0.5rem;**/
+    margin-top: 0.4rem;
+}
+
+.core-team-right ul{
+	font-size: 0.8rem;
+}
+.hpv-detection-left {
+	float:left;
+	width:40%;
+}
+.hpv-detection-firt {
+	float:left;
+	width:60%;
+}
+.hpv-detection-first-one {
+	float: right;
+    width: 30%;
+}
+.hpv-detection-first-one img {
+	 width: 60%;
+}	
+.hpv-detection-first-two {
+	 width: 30%;
+	 float: right;
+}
+.hpv-detection-first-two img {
+	width: 90%; 
+	margin-left: -1rem;
+}
+.hpv-detection-margin {
+	margin-top: 2rem;
+}
+.hpv-detection-ul {
+	float:left;
+	width:35%;
+}
+.hpv-detection-div-one {
+	float:left; 
+	width:30%;
+}
+.hpv-detection-div-one img {
+	/**margin-top: -1rem;**/
+}
+.hpv-detection-div-two {
+	float:left; 
+	width:30%;
+}
+.hpv-detection-div-two img {
+	width: 90%; 
+	float: right;
+}
+.sub-title {
+	font-size:1rem;
+}
+.less-part-div {
+	width:40%;
+	float:left;
+}
+.more-part-div {
+	width:60%;
+	float:left;
+}
+.etection-sensitivity {
+	width:50%;
+	float:left;
+}
+.content-font-size {
+	font-size:1rem;
+}
+.div-foot {
+	font-size: 0.8rem;
+}
+.end-div {
+	text-align: center;
+    font-size: 1.5rem;
+    color: blue;
+    font-weight: bold;
+}

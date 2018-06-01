@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+
+.col-xs-12 {
+	padding-left: 5px;
+}
+ul {
+	-webkit-padding-start: 20px;
+}
+.title-div {
+	background:#0092c9; 
+	padding-top:1rem; 
+	padding-bottom:1rem;
+}
+.title-div div {
+	color:#fff; 
+	text-align:center; 
+	font-size:2rem;
+}
+.start-div {
+	margin-top: 1rem;
+}
+.kit-component-div {
+    font-size: 15px;
+    /**padding-top: 0.5rem;**/
+    text-align: left;
+    /**padding-left: 0.5rem;**/
+    color: #0092c9;
+}
+.kit-component-ul {
+	margin-top: 0.2rem;
+	font-size: 1rem;
+}
+.image-div {
+	padding-top: 2rem;
+}
+.clearMsg {
+	clear: both;
+}
+img {
+	width: 100%;
+}

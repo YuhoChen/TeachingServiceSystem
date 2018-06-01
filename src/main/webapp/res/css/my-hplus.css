@@ -1,0 +1,36 @@
+.float-e-margins .btn {
+	margin-bottom: 0px;
+}
+
+.form-inline .form-group {
+	margin-bottom: 10px;
+}
+
+.detail-submit {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+.my-img {
+	width: 100px;
+	height: 80px;
+}
+.my-images {
+	
+}
+
+.my-images .my-images-unit{
+	float: left;
+	margin-left: 10px;
+}
+
+.my-images .my-images-unit .del-img {
+}
+
+.my-images .my-images-unit .add-img {
+	line-height: 80px;
+}
+
+.list-image {
+	width: 40px;
+}

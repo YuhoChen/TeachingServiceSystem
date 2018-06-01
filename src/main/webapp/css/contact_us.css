@@ -1,0 +1,15 @@
+@charset "utf-8";
+/* CSS Document */
+
+.contact-us-div {
+	margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.contact-us-div table {
+	font-size: 1.5rem;
+}
+
+.contact-us-div td img{
+	width:80%;
+}

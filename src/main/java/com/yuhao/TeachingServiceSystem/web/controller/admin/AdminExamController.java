@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.yuhao.TeachingServiceSystem.dto.CourseDTO;
 import com.yuhao.TeachingServiceSystem.service.CourseService;
+import com.yuhao.TeachingServiceSystem.service.StudentCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,9 @@ public class AdminExamController extends BaseController {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    private StudentCourseService studentCourseService;
 
     @RequestMapping(value = "/detail")
     public String detail(Map<String, Object> map, Long id) {
@@ -76,5 +80,20 @@ public class AdminExamController extends BaseController {
         map.put("search", search);
         return "admin/exam/exam_list";
     }
+
+    @RequestMapping(value = "/student")
+    public String student(CourseDTO dto, Boolean search, Map<String, Object> map, Page page){
+        List<CourseDTO> list=studentCourseService.findIn(getCurrentUserDTO());
+
+        List<ExamDTO> examDTOList=examService.find(list);
+
+        map.put("list", examDTOList);
+        map.put("query", dto);
+        map.put("search", search);
+
+        return "admin/exam/exam_stu";
+
+    }
+
 
 }  

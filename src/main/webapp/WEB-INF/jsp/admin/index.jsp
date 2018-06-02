@@ -53,11 +53,11 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="J_menuItem" href="${ctx }/admin/user/editHeadImage">修改头像</a>
+                                <%--<li><a class="J_menuItem" href="${ctx }/admin/user/editHeadImage">修改头像</a>--%>
+                                <%--</li>--%>
+                                <li><a onclick="edit()">个人资料</a>
                                 </li>
-                                <li><a class="J_menuItem" href="profile.html">个人资料</a>
-                                </li>
-                                <li><a class="J_menuItem" href="${ctx }/admin/user/changePassword">修改密码</a>
+                                <li><a onclick="changePassword()">修改密码</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="${ctx }/j_spring_security_logout">安全退出</a>
@@ -138,7 +138,88 @@
 		</c:if>
 			
 		});
+
 	</script>
+<script>
+    function edit() {
+
+        layer.open({
+            title: '修改个人信息',
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            area: [layer_default_width, layer_default_height], //宽高
+            content: "${ctx}/admin/user/edit",
+            btn: ['确认', '取消'],
+            yes: function (index, layero) { //或者使用btn1
+                var detailForm = layer.getChildFrame('form', index);
+                console.log(detailForm);
+
+                var email = $('#email', detailForm).val();
+                if (!!!email) {
+                    alert('请输入邮箱.');
+                    return false;
+                }
+                var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!emailReg.test(email)) {
+                    alert('请输入正确的邮箱.');
+                    return false;
+                }
+
+                var phone = $('#phone', detailForm).val();
+                var phoneReg = /^1[3,5,8]\d{9}$/;
+                if (!!!phone) {
+                    alert('请输入电话号码.');
+                    return false;
+                }
+                if (!phoneReg.test(phone)) {
+                    alert('请输入正确的电话号码.');
+                    return false;
+                }
+                detailForm.ajaxSubmit({
+                    success: function (data) {
+                        if (isSuccess(data)) {
+                            layer.close(index);
+                        } else {
+                        }
+                    }
+                });
+            }, cancel: function (index) { //或者使用btn2
+                //按钮【按钮二】的回调
+            }
+
+        });
+    }
+
+
+    function changePassword() {
+
+        layer.open({
+            title: '修改密码',
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            area: [layer_default_width, layer_default_height], //宽高
+            content: "${ctx}/admin/user/changePassword",
+            btn: ['确认', '取消'],
+            yes: function (index, layero) { //或者使用btn1
+                var detailForm = layer.getChildFrame('form', index);
+                console.log(detailForm);
+
+                detailForm.ajaxSubmit({
+                    success: function (data) {
+                        if (isSuccess(data)) {
+                            layer.close(index);
+                        } else {
+                        }
+                    }
+                });
+            }, cancel: function (index) { //或者使用btn2
+                //按钮【按钮二】的回调
+            }
+
+        });
+
+    }
+</script>
 </body>
 
 </html>

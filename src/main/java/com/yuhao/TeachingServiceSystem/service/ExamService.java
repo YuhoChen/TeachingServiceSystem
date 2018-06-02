@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yuhao.TeachingServiceSystem.dao.CourseDAO;
+import com.yuhao.TeachingServiceSystem.dto.CourseDTO;
 import com.yuhao.TeachingServiceSystem.model.Course;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +88,28 @@ public class ExamService extends BaseService{
             Exam model = examDAO.findOne(query);
             return toDTO(model,ExamDTO.class);
       }
+
+      public List<ExamDTO> find(List<CourseDTO> list){
+
+        List<ExamDTO> examDTOList=new ArrayList<ExamDTO>();
+
+          for (CourseDTO c:list) {
+
+              ExamDTO examDTO=new ExamDTO();
+              Course course=new Course();
+              course.setId(c.getId());
+              examDTO.setCourseNumber(course);
+
+              Exam exam=examDAO.findOne(examDTO);
+              if (exam!=null){
+                  examDTOList.add(toDTO(exam,ExamDTO.class));
+              }
+
+          }
+
+          return examDTOList;
+      }
+
+
 
 }  

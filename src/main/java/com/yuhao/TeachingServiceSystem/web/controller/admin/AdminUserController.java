@@ -1,6 +1,8 @@
 package com.yuhao.TeachingServiceSystem.web.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.yuhao.TeachingServiceSystem.common.UserType;
 import com.yuhao.TeachingServiceSystem.dto.RoleDTO;
+import com.yuhao.TeachingServiceSystem.dto.StudentDTO;
+import com.yuhao.TeachingServiceSystem.dto.TeacherDTO;
 import com.yuhao.TeachingServiceSystem.dto.UserDTO;
+import com.yuhao.TeachingServiceSystem.exception.BizException;
 import com.yuhao.TeachingServiceSystem.model.Role;
-import com.yuhao.TeachingServiceSystem.service.RoleService;
-import com.yuhao.TeachingServiceSystem.service.UserRoleService;
-import com.yuhao.TeachingServiceSystem.service.UserService;
+import com.yuhao.TeachingServiceSystem.service.*;
 import com.yuhao.TeachingServiceSystem.util.Page;
 import com.yuhao.TeachingServiceSystem.web.controller.BaseController;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +37,12 @@ public class AdminUserController extends BaseController {
     private UserRoleService userRoleService;
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private StudentService studentService;
+    @Autowired
+    private TeacherService teacherService;
+
 
     @RequestMapping(value = "/detail")
     public String detail(Integer type, Long parentId, Map<String, Object> map, Long id, boolean seedUser) {
@@ -82,6 +91,37 @@ public class AdminUserController extends BaseController {
         return "admin/user/user_list";
     }
 
+    @RequestMapping(value = "/edit")
+    public String edit(Map<String, Object> map){
+
+        UserDTO user=getCurrentUserDTO();
+        if (user==null){
+            throw new BizException("请重新登陆!");
+        }
+
+        if(user.getType()==UserType.STUDENT.getValue()){
+
+            StudentDTO dto = new StudentDTO();
+            dto.setStudentNumber(user.getUsername());
+            dto=studentService.findOne(dto);
+            map.put("n", dto);
+            return "admin/student/student_detail";
+
+        }else if(user.getType()==UserType.TEACHER.getValue()){
+
+            TeacherDTO dto = new TeacherDTO();
+            dto.setTeacherNumber(user.getUsername());
+            dto=teacherService.findOne(dto);
+            map.put("n", dto);
+            return "admin/teacher/teacher_detail";
+        }else {
+            map.put("n",user);
+            return "admin/user/user_detail";
+        }
+
+    }
+
+
     @RequestMapping(value = "/auth")
     public String auth(Map<String, Object> map, Long userId, RoleDTO dto, Page page) {
         if (userId != null) {
@@ -89,7 +129,7 @@ public class AdminUserController extends BaseController {
             List<RoleDTO> list = roleService.list(dto, page);
             for (RoleDTO model : list) {
                 for (RoleDTO role : roles) {
-                    if (role.getId() == model.getId()) {
+                    if (role.getId() .equals( model.getId())) {
                         model.setChecked(true);
                     }
                 }
@@ -146,10 +186,11 @@ public class AdminUserController extends BaseController {
         return "admin/user/user_changePassword";
     }
 
+    @ResponseBody
     @RequestMapping(value = "saveChangePassword")
     public String saveChangePassword(String oldPassword, String newPassword, String confirmPassword, Long userId, Map<String, Object> map) {
         userService.changePassword(userId, oldPassword, newPassword, confirmPassword);
-        return successPage(null);
+        return ok();
     }
 
 }

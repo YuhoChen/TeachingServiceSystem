@@ -94,7 +94,6 @@ public class AdminStudentCourseController extends BaseController {
     public String result(CourseDTO dto, Boolean search, Map<String, Object> map, Page page){
 
         List<CourseDTO> list=studentCourseService.findIn(getCurrentUserDTO());
-
         map.put("list", list);
         map.put("query", dto);
         map.put("search", search);

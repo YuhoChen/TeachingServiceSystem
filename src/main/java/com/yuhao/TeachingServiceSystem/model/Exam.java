@@ -39,14 +39,12 @@ public class Exam extends BaseModel{
 
 
 
-
 	/**
 	* 考试时间
 	*/
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(name="exam_time")
 	private Date examTime;
-
 
 
 

@@ -21,6 +21,7 @@ import com.yuhao.TeachingServiceSystem.web.controller.BaseController;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,7 +63,7 @@ public class AdminRoleController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/delete")
-    public String delete(HttpServletResponse response, Long[] ids) throws IOException {
+    public String delete( Long[] ids) throws IOException {
         roleService.deleteByIds(ids);
 
         return ok();
@@ -144,7 +145,7 @@ public class AdminRoleController extends BaseController {
             j1.put("text", l1.getName());
             j1.put("id", l1.getId());
             JSONArray array = new JSONArray();
-            if (l1.getChildren()!=null)
+            if (l1.getChildren()!=null) {
                 for (MenuDTO l2 : l1.getChildren()) {
                     JSONObject j2 = new JSONObject();
                     j2.put("text", l2.getName());
@@ -157,6 +158,7 @@ public class AdminRoleController extends BaseController {
                     j2.put("state", state);
                     array.add(j2);
                 }
+            }
             j1.put("children", array);
             result.add(j1);
         }

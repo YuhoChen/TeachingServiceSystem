@@ -16,10 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>yuhao</title>
+    <title>教学服务系统</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-   	<link rel="shortcut icon" href="/favicon.ico">
+   	<link rel="shortcut icon" href="favicon.ico">
     <style type="text/css">
         .banner_style{
             /*Microsoft YaHei,SimYou*/
@@ -81,7 +81,7 @@
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                 	<div style="text-align:left;">
                         <p style="height: 1px"></p>
-                		<span class="banner_style">yuhao</span>
+
                         <p style="height: 1px"></p>
                 	</div>
                 </nav>
